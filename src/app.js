@@ -6,6 +6,7 @@ import { sequelize } from './config/database.js';
 import './models/index.js';
 import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/users.routes.js';
+import tagRoutes from './routes/tags.routes.js';
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/tags', tagRoutes);
 
 const PORT = process.env.PORT || 3000;
 
