@@ -4,6 +4,7 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import { sequelize } from './config/database.js';
 import './models/index.js';
+import authRoutes from './routes/auth.routes.js';
 
 dotenv.config();
 
@@ -16,6 +17,8 @@ app.use(cookieParser());
 app.get('/', (req, res) => {
     res.status(200).json({ message: 'API del blog funcionando' });
 });
+
+app.use('/api/auth', authRoutes);
 
 const PORT = process.env.PORT || 3000;
 
