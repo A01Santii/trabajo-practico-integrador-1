@@ -31,7 +31,7 @@ const nameRule = (field, label, required) => {
         .withMessage(`${label} solo puede contener letras`);
 };
 
-const profileRules = (required) => [
+export const profileRules = (required) => [
     nameRule('first_name', 'El nombre', required),
     nameRule('last_name', 'El apellido', required),
     body('biography')
