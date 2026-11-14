@@ -1,11 +1,19 @@
 import { Article, ArticleTag } from '../models/index.js';
 
+const isValidId = (value) => Number.isInteger(Number(value)) && Number(value) > 0;
+
 export const ownerMiddleware = (allowAdmin = false) => {
     return async (req, res, next) => {
         try {
             let articleId = null;
 
-            if (req.params.articleTagId) {
+            if (req.params.articleTagId !== undefined) {
+                if (!isValidId(req.params.articleTagId)) {
+                    return res.status(400).json({
+                        ok: false,
+                        message: 'El articleTagId debe ser un número entero positivo',
+                    });
+                }
                 const articleTag = await ArticleTag.findByPk(req.params.articleTagId);
                 if (!articleTag) {
                     return res.status(404).json({
@@ -14,16 +22,20 @@ export const ownerMiddleware = (allowAdmin = false) => {
                     });
                 }
                 articleId = articleTag.article_id;
-            } else if (req.params.id) {
+            } else if (req.params.id !== undefined) {
                 articleId = req.params.id;
-            } else if (req.body.article_id) {
+            } else if (req.body?.article_id !== undefined) {
                 articleId = req.body.article_id;
             }
 
-            if (!articleId) {
+            if (articleId === null) {
+                return res.status(400).json({ ok: false, message: 'No se indicó el artículo' });
+            }
+
+            if (!isValidId(articleId)) {
                 return res.status(400).json({
                     ok: false,
-                    message: 'No se indicó el artículo',
+                    message: 'El id del artículo debe ser un número entero positivo',
                 });
             }
 
