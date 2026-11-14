@@ -8,6 +8,7 @@ import authRoutes from './routes/auth.routes.js';
 import userRoutes from './routes/users.routes.js';
 import tagRoutes from './routes/tags.routes.js';
 import articleRoutes from './routes/articles.routes.js';
+import articleTagRoutes from './routes/articleTags.routes.js';
 
 dotenv.config();
 
@@ -25,6 +26,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/tags', tagRoutes);
 app.use('/api/articles', articleRoutes);
+app.use('/api/articles-tags', articleTagRoutes);
 
 const PORT = process.env.PORT || 3000;
 
